@@ -10,7 +10,9 @@ class DAO():
     def get_all_countries():
         """
         restituisce un dizionario contenente tutte le nazioni del database
-        la chiave principale del dizionario è StateAbb
+        la chiave principale del dizionario è CCode
+
+        uso il codice e non l'abbreviazione univoca perchè la russia da problemi con ussr
         """
         countries = {}
         conn = DBConnect.get_connection()
@@ -25,7 +27,7 @@ class DAO():
             cursor.execute(query, ())
             res = cursor.fetchall()
             for c in res:
-                countries[c["StateAbb"]] = Country(**c)
+                countries[c["CCode"]] = Country(**c)
             cursor.close()
         conn.close()
         return countries
@@ -39,7 +41,7 @@ class DAO():
         else:
             cursor = conn.cursor(dictionary=True)
             query = """
-                    select state1ab, state2ab, year 
+                    select state1no, state2no, year 
                     from contiguity c 
                     where conttype = 1
                     and year < %s
