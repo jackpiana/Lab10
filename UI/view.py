@@ -13,19 +13,28 @@ class View(ft.UserControl):
         self._controller = None
         # graphical elements
         self._title = None
-
         self._txt_result = None
+        self._ddMenu = None
+
 
     def load_interface(self):
         # title
         self._title = ft.Text("Country Borders", color="blue", size=24)
         self._page.controls.append(self._title)
 
-        #ROW with controls
+        #ROW1 with controls for ex1
         self._txtAnno = ft.TextField(label="Anno")
-        self._btnCalcola = ft.ElevatedButton(text="Calcola Confini", on_click=self._controller.handleCalcola)
+        self._btnCalcola = ft.ElevatedButton(text="Crea grafo Confini", on_click=self._controller.handleCalcola)
         row1 = ft.Row([self._txtAnno, self._btnCalcola], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
+
+        #ROW2 with controls for ex2
+        self._btnRaggiungibili = ft.ElevatedButton(text="Stati raggiungibili", on_click=lambda e: self._controller.handleRaggiungibili())
+        self._ddMenu = ft.Dropdown(label= "Stato")
+        self._controller.fill_dd()
+        row2 = ft.Row([self._ddMenu, self._btnRaggiungibili], alignment=ft.MainAxisAlignment.CENTER)
+        self._page.controls.append(row2)
+
         # List View where the reply is printed
         self._txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=False)
         self._page.controls.append(self._txt_result)

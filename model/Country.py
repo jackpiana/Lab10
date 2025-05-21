@@ -12,3 +12,9 @@ class Country:
         return hash(self.StateAbb)
     def __str__(self):
         return f"{self.StateAbb} - {self.StateNme}"
+    def __lt__(self, other):
+        """
+        permette il confronto tra due oggetti country
+        viene usato da .sort()
+        """
+        return self.StateNme.lower() < other.StateNme.lower()

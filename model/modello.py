@@ -1,6 +1,7 @@
 import networkx as nx
 
 from database.DAO import DAO
+from model.plotter import GraphPlotter
 
 
 class Model:
@@ -26,7 +27,15 @@ class Model:
             self._grafo.add_edge(a, b)
             #print(f"added edge {a} --- {b}")
 
+    def get_componenti_connesse(self):
+        return nx.number_connected_components(self._grafo)
+
+    def get_reachable_nodes(self, node):
+        reachable_nodes = nx.node_connected_component(self._grafo, node)
+        return reachable_nodes
 
 if __name__ == "__main__":
     m = Model()
-    m.buildGraph(1970)
+    m.buildGraph(2000)
+    plotter = GraphPlotter(m._grafo)
+    plotter.plot(layout='spring', title='My Graph')

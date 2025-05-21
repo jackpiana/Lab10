@@ -45,6 +45,7 @@ class DAO():
                     from contiguity c 
                     where conttype = 1
                     and year < %s
+                    order by state1ab
                     """
             cursor.execute(query, (year,))
             res = cursor.fetchall()
